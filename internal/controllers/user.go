@@ -9,9 +9,9 @@ import (
 	pb "github.com/mikaponics/mikaponics-iam/api"
 )
 
-func (s *MikaponicsRPC) AddTimeSeriesDatum(ctx context.Context, in *pb.TimeSeriesDatumRequest) (*pb.MikapodIAMResponse, error) {
-	return &pb.MikapodIAMResponse{
-		Message: "Instrument was updated",
+func (s *MikaponicsRPC) Login(ctx context.Context, in *pb.LoginRequest) (*pb.LoginResponse, error) {
+	return &pb.LoginResponse{
+		Key: "Instrument was updated",
 		Status: true,
 	}, nil
 }

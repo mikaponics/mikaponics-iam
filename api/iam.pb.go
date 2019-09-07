@@ -7,7 +7,6 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -25,364 +24,121 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type TimeSeriesDatumRequest struct {
-	Instrument           int32                `protobuf:"varint,1,opt,name=instrument,proto3" json:"instrument,omitempty"`
-	Value                float32              `protobuf:"fixed32,2,opt,name=value,proto3" json:"value,omitempty"`
-	Timestamp            *timestamp.Timestamp `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+type LoginRequest struct {
+	Email                string   `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Password             string   `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *TimeSeriesDatumRequest) Reset()         { *m = TimeSeriesDatumRequest{} }
-func (m *TimeSeriesDatumRequest) String() string { return proto.CompactTextString(m) }
-func (*TimeSeriesDatumRequest) ProtoMessage()    {}
-func (*TimeSeriesDatumRequest) Descriptor() ([]byte, []int) {
+func (m *LoginRequest) Reset()         { *m = LoginRequest{} }
+func (m *LoginRequest) String() string { return proto.CompactTextString(m) }
+func (*LoginRequest) ProtoMessage()    {}
+func (*LoginRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_4dbcc987c0695300, []int{0}
 }
 
-func (m *TimeSeriesDatumRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_TimeSeriesDatumRequest.Unmarshal(m, b)
+func (m *LoginRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoginRequest.Unmarshal(m, b)
 }
-func (m *TimeSeriesDatumRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_TimeSeriesDatumRequest.Marshal(b, m, deterministic)
+func (m *LoginRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoginRequest.Marshal(b, m, deterministic)
 }
-func (m *TimeSeriesDatumRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_TimeSeriesDatumRequest.Merge(m, src)
+func (m *LoginRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoginRequest.Merge(m, src)
 }
-func (m *TimeSeriesDatumRequest) XXX_Size() int {
-	return xxx_messageInfo_TimeSeriesDatumRequest.Size(m)
+func (m *LoginRequest) XXX_Size() int {
+	return xxx_messageInfo_LoginRequest.Size(m)
 }
-func (m *TimeSeriesDatumRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_TimeSeriesDatumRequest.DiscardUnknown(m)
+func (m *LoginRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoginRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_TimeSeriesDatumRequest proto.InternalMessageInfo
+var xxx_messageInfo_LoginRequest proto.InternalMessageInfo
 
-func (m *TimeSeriesDatumRequest) GetInstrument() int32 {
+func (m *LoginRequest) GetEmail() string {
 	if m != nil {
-		return m.Instrument
+		return m.Email
 	}
-	return 0
+	return ""
 }
 
-func (m *TimeSeriesDatumRequest) GetValue() float32 {
+func (m *LoginRequest) GetPassword() string {
 	if m != nil {
-		return m.Value
+		return m.Password
 	}
-	return 0
+	return ""
 }
 
-func (m *TimeSeriesDatumRequest) GetTimestamp() *timestamp.Timestamp {
-	if m != nil {
-		return m.Timestamp
-	}
-	return nil
-}
-
-type MikapodIAMResponse struct {
-	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
-	Status               bool     `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
+type LoginResponse struct {
+	Status               bool     `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Key                  string   `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *MikapodIAMResponse) Reset()         { *m = MikapodIAMResponse{} }
-func (m *MikapodIAMResponse) String() string { return proto.CompactTextString(m) }
-func (*MikapodIAMResponse) ProtoMessage()    {}
-func (*MikapodIAMResponse) Descriptor() ([]byte, []int) {
+func (m *LoginResponse) Reset()         { *m = LoginResponse{} }
+func (m *LoginResponse) String() string { return proto.CompactTextString(m) }
+func (*LoginResponse) ProtoMessage()    {}
+func (*LoginResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_4dbcc987c0695300, []int{1}
 }
 
-func (m *MikapodIAMResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_MikapodIAMResponse.Unmarshal(m, b)
+func (m *LoginResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoginResponse.Unmarshal(m, b)
 }
-func (m *MikapodIAMResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_MikapodIAMResponse.Marshal(b, m, deterministic)
+func (m *LoginResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoginResponse.Marshal(b, m, deterministic)
 }
-func (m *MikapodIAMResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MikapodIAMResponse.Merge(m, src)
+func (m *LoginResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoginResponse.Merge(m, src)
 }
-func (m *MikapodIAMResponse) XXX_Size() int {
-	return xxx_messageInfo_MikapodIAMResponse.Size(m)
+func (m *LoginResponse) XXX_Size() int {
+	return xxx_messageInfo_LoginResponse.Size(m)
 }
-func (m *MikapodIAMResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MikapodIAMResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_MikapodIAMResponse proto.InternalMessageInfo
-
-func (m *MikapodIAMResponse) GetMessage() string {
-	if m != nil {
-		return m.Message
-	}
-	return ""
+func (m *LoginResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoginResponse.DiscardUnknown(m)
 }
 
-func (m *MikapodIAMResponse) GetStatus() bool {
+var xxx_messageInfo_LoginResponse proto.InternalMessageInfo
+
+func (m *LoginResponse) GetStatus() bool {
 	if m != nil {
 		return m.Status
 	}
 	return false
 }
 
-type ListTimeSeriesDataRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ListTimeSeriesDataRequest) Reset()         { *m = ListTimeSeriesDataRequest{} }
-func (m *ListTimeSeriesDataRequest) String() string { return proto.CompactTextString(m) }
-func (*ListTimeSeriesDataRequest) ProtoMessage()    {}
-func (*ListTimeSeriesDataRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4dbcc987c0695300, []int{2}
-}
-
-func (m *ListTimeSeriesDataRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListTimeSeriesDataRequest.Unmarshal(m, b)
-}
-func (m *ListTimeSeriesDataRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListTimeSeriesDataRequest.Marshal(b, m, deterministic)
-}
-func (m *ListTimeSeriesDataRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListTimeSeriesDataRequest.Merge(m, src)
-}
-func (m *ListTimeSeriesDataRequest) XXX_Size() int {
-	return xxx_messageInfo_ListTimeSeriesDataRequest.Size(m)
-}
-func (m *ListTimeSeriesDataRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListTimeSeriesDataRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListTimeSeriesDataRequest proto.InternalMessageInfo
-
-type ListTimeSeriesDataResponse struct {
-	Data                 []*TimeSeriesDatum `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
-	XXX_unrecognized     []byte             `json:"-"`
-	XXX_sizecache        int32              `json:"-"`
-}
-
-func (m *ListTimeSeriesDataResponse) Reset()         { *m = ListTimeSeriesDataResponse{} }
-func (m *ListTimeSeriesDataResponse) String() string { return proto.CompactTextString(m) }
-func (*ListTimeSeriesDataResponse) ProtoMessage()    {}
-func (*ListTimeSeriesDataResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4dbcc987c0695300, []int{3}
-}
-
-func (m *ListTimeSeriesDataResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListTimeSeriesDataResponse.Unmarshal(m, b)
-}
-func (m *ListTimeSeriesDataResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListTimeSeriesDataResponse.Marshal(b, m, deterministic)
-}
-func (m *ListTimeSeriesDataResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListTimeSeriesDataResponse.Merge(m, src)
-}
-func (m *ListTimeSeriesDataResponse) XXX_Size() int {
-	return xxx_messageInfo_ListTimeSeriesDataResponse.Size(m)
-}
-func (m *ListTimeSeriesDataResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListTimeSeriesDataResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListTimeSeriesDataResponse proto.InternalMessageInfo
-
-func (m *ListTimeSeriesDataResponse) GetData() []*TimeSeriesDatum {
+func (m *LoginResponse) GetKey() string {
 	if m != nil {
-		return m.Data
-	}
-	return nil
-}
-
-type TimeSeriesDatum struct {
-	Id                   int64                `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Instrument           int32                `protobuf:"varint,2,opt,name=instrument,proto3" json:"instrument,omitempty"`
-	Value                float32              `protobuf:"fixed32,3,opt,name=value,proto3" json:"value,omitempty"`
-	Timestamp            *timestamp.Timestamp `protobuf:"bytes,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
-}
-
-func (m *TimeSeriesDatum) Reset()         { *m = TimeSeriesDatum{} }
-func (m *TimeSeriesDatum) String() string { return proto.CompactTextString(m) }
-func (*TimeSeriesDatum) ProtoMessage()    {}
-func (*TimeSeriesDatum) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4dbcc987c0695300, []int{4}
-}
-
-func (m *TimeSeriesDatum) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_TimeSeriesDatum.Unmarshal(m, b)
-}
-func (m *TimeSeriesDatum) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_TimeSeriesDatum.Marshal(b, m, deterministic)
-}
-func (m *TimeSeriesDatum) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_TimeSeriesDatum.Merge(m, src)
-}
-func (m *TimeSeriesDatum) XXX_Size() int {
-	return xxx_messageInfo_TimeSeriesDatum.Size(m)
-}
-func (m *TimeSeriesDatum) XXX_DiscardUnknown() {
-	xxx_messageInfo_TimeSeriesDatum.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_TimeSeriesDatum proto.InternalMessageInfo
-
-func (m *TimeSeriesDatum) GetId() int64 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
-func (m *TimeSeriesDatum) GetInstrument() int32 {
-	if m != nil {
-		return m.Instrument
-	}
-	return 0
-}
-
-func (m *TimeSeriesDatum) GetValue() float32 {
-	if m != nil {
-		return m.Value
-	}
-	return 0
-}
-
-func (m *TimeSeriesDatum) GetTimestamp() *timestamp.Timestamp {
-	if m != nil {
-		return m.Timestamp
-	}
-	return nil
-}
-
-type DeleteTimeSeriesDataByPKsRequest struct {
-	Pks                  []int64  `protobuf:"varint,1,rep,packed,name=pks,proto3" json:"pks,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DeleteTimeSeriesDataByPKsRequest) Reset()         { *m = DeleteTimeSeriesDataByPKsRequest{} }
-func (m *DeleteTimeSeriesDataByPKsRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteTimeSeriesDataByPKsRequest) ProtoMessage()    {}
-func (*DeleteTimeSeriesDataByPKsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4dbcc987c0695300, []int{5}
-}
-
-func (m *DeleteTimeSeriesDataByPKsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteTimeSeriesDataByPKsRequest.Unmarshal(m, b)
-}
-func (m *DeleteTimeSeriesDataByPKsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteTimeSeriesDataByPKsRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteTimeSeriesDataByPKsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteTimeSeriesDataByPKsRequest.Merge(m, src)
-}
-func (m *DeleteTimeSeriesDataByPKsRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteTimeSeriesDataByPKsRequest.Size(m)
-}
-func (m *DeleteTimeSeriesDataByPKsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteTimeSeriesDataByPKsRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteTimeSeriesDataByPKsRequest proto.InternalMessageInfo
-
-func (m *DeleteTimeSeriesDataByPKsRequest) GetPks() []int64 {
-	if m != nil {
-		return m.Pks
-	}
-	return nil
-}
-
-type DeleteTimeSeriesDataResponse struct {
-	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
-	Status               bool     `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DeleteTimeSeriesDataResponse) Reset()         { *m = DeleteTimeSeriesDataResponse{} }
-func (m *DeleteTimeSeriesDataResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteTimeSeriesDataResponse) ProtoMessage()    {}
-func (*DeleteTimeSeriesDataResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4dbcc987c0695300, []int{6}
-}
-
-func (m *DeleteTimeSeriesDataResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteTimeSeriesDataResponse.Unmarshal(m, b)
-}
-func (m *DeleteTimeSeriesDataResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteTimeSeriesDataResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteTimeSeriesDataResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteTimeSeriesDataResponse.Merge(m, src)
-}
-func (m *DeleteTimeSeriesDataResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteTimeSeriesDataResponse.Size(m)
-}
-func (m *DeleteTimeSeriesDataResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteTimeSeriesDataResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteTimeSeriesDataResponse proto.InternalMessageInfo
-
-func (m *DeleteTimeSeriesDataResponse) GetMessage() string {
-	if m != nil {
-		return m.Message
+		return m.Key
 	}
 	return ""
-}
-
-func (m *DeleteTimeSeriesDataResponse) GetStatus() bool {
-	if m != nil {
-		return m.Status
-	}
-	return false
 }
 
 func init() {
-	proto.RegisterType((*TimeSeriesDatumRequest)(nil), "api.TimeSeriesDatumRequest")
-	proto.RegisterType((*MikapodIAMResponse)(nil), "api.MikapodIAMResponse")
-	proto.RegisterType((*ListTimeSeriesDataRequest)(nil), "api.ListTimeSeriesDataRequest")
-	proto.RegisterType((*ListTimeSeriesDataResponse)(nil), "api.ListTimeSeriesDataResponse")
-	proto.RegisterType((*TimeSeriesDatum)(nil), "api.TimeSeriesDatum")
-	proto.RegisterType((*DeleteTimeSeriesDataByPKsRequest)(nil), "api.DeleteTimeSeriesDataByPKsRequest")
-	proto.RegisterType((*DeleteTimeSeriesDataResponse)(nil), "api.DeleteTimeSeriesDataResponse")
+	proto.RegisterType((*LoginRequest)(nil), "api.LoginRequest")
+	proto.RegisterType((*LoginResponse)(nil), "api.LoginResponse")
 }
 
 func init() { proto.RegisterFile("api/iam.proto", fileDescriptor_4dbcc987c0695300) }
 
 var fileDescriptor_4dbcc987c0695300 = []byte{
-	// 354 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x92, 0x4f, 0x4f, 0xf2, 0x40,
-	0x10, 0xc6, 0xdf, 0xb6, 0xc0, 0x2b, 0x43, 0xfc, 0x93, 0x0d, 0xc1, 0x5a, 0x8c, 0x36, 0x7b, 0xea,
-	0xa9, 0x24, 0xe8, 0xc1, 0x2b, 0x86, 0x90, 0x18, 0x21, 0x21, 0x2b, 0x27, 0x6f, 0x4b, 0x3a, 0x92,
-	0x0d, 0x2c, 0x5d, 0xd9, 0xad, 0x89, 0xdf, 0xc0, 0xab, 0xdf, 0xd8, 0xb8, 0xa5, 0x22, 0x15, 0x0e,
-	0x7a, 0xeb, 0xcc, 0x3c, 0xcd, 0x3c, 0xcf, 0x6f, 0x16, 0x0e, 0xb9, 0x12, 0x1d, 0xc1, 0x65, 0xac,
-	0x56, 0xa9, 0x49, 0x89, 0xc7, 0x95, 0x08, 0x2e, 0x67, 0x69, 0x3a, 0x5b, 0x60, 0xc7, 0xb6, 0xa6,
-	0xd9, 0x53, 0xc7, 0x08, 0x89, 0xda, 0x70, 0xa9, 0x72, 0x15, 0x7d, 0x73, 0xa0, 0x35, 0x11, 0x12,
-	0x1f, 0x70, 0x25, 0x50, 0xf7, 0xb9, 0xc9, 0x24, 0xc3, 0xe7, 0x0c, 0xb5, 0x21, 0x17, 0x00, 0x62,
-	0xa9, 0xcd, 0x2a, 0x93, 0xb8, 0x34, 0xbe, 0x13, 0x3a, 0x51, 0x95, 0x7d, 0xeb, 0x90, 0x26, 0x54,
-	0x5f, 0xf8, 0x22, 0x43, 0xdf, 0x0d, 0x9d, 0xc8, 0x65, 0x79, 0x41, 0x6e, 0xa0, 0xfe, 0xb5, 0xc3,
-	0xf7, 0x42, 0x27, 0x6a, 0x74, 0x83, 0x38, 0x77, 0x11, 0x17, 0x2e, 0xe2, 0x49, 0xa1, 0x60, 0x1b,
-	0x31, 0x1d, 0x00, 0x19, 0x89, 0x39, 0x57, 0x69, 0x72, 0xd7, 0x1b, 0x31, 0xd4, 0x2a, 0x5d, 0x6a,
-	0x24, 0x3e, 0xfc, 0x97, 0xa8, 0x35, 0x9f, 0xa1, 0xb5, 0x50, 0x67, 0x45, 0x49, 0x5a, 0x50, 0xd3,
-	0x86, 0x9b, 0x4c, 0x5b, 0x03, 0x07, 0x6c, 0x5d, 0xd1, 0x36, 0x9c, 0x0d, 0x85, 0x36, 0x5b, 0xa9,
-	0xf8, 0x3a, 0x14, 0x1d, 0x40, 0xb0, 0x6b, 0xb8, 0x5e, 0x16, 0x41, 0x25, 0xe1, 0x86, 0xfb, 0x4e,
-	0xe8, 0x45, 0x8d, 0x6e, 0x33, 0xe6, 0x4a, 0xc4, 0x65, 0x3a, 0x56, 0x41, 0xdf, 0x1d, 0x38, 0x2e,
-	0x4d, 0xc8, 0x11, 0xb8, 0x22, 0xb1, 0x2e, 0x3d, 0xe6, 0x8a, 0xa4, 0x04, 0xd0, 0xdd, 0x0f, 0xd0,
-	0xdb, 0x0b, 0xb0, 0xf2, 0x1b, 0x80, 0xd7, 0x10, 0xf6, 0x71, 0x81, 0x06, 0xb7, 0xd3, 0xdd, 0xbe,
-	0x8e, 0xef, 0x75, 0x71, 0xd4, 0x13, 0xf0, 0xd4, 0x5c, 0xdb, 0x80, 0x1e, 0xfb, 0xfc, 0xa4, 0x63,
-	0x38, 0xdf, 0xf5, 0xd7, 0xdf, 0x0f, 0xd0, 0x7d, 0x04, 0xd8, 0x1c, 0x92, 0x0c, 0x81, 0xf4, 0x92,
-	0xa4, 0xcc, 0xaa, 0xbd, 0x93, 0x6d, 0x6e, 0x32, 0x38, 0xb5, 0xc3, 0x9f, 0x8f, 0x81, 0xfe, 0x9b,
-	0xd6, 0x2c, 0x82, 0xab, 0x8f, 0x00, 0x00, 0x00, 0xff, 0xff, 0xf4, 0x93, 0xb9, 0x6e, 0xed, 0x02,
-	0x00, 0x00,
+	// 177 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4d, 0x2c, 0xc8, 0xd4,
+	0xcf, 0x4c, 0xcc, 0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x4e, 0x2c, 0xc8, 0x54, 0x72,
+	0xe0, 0xe2, 0xf1, 0xc9, 0x4f, 0xcf, 0xcc, 0x0b, 0x4a, 0x2d, 0x2c, 0x4d, 0x2d, 0x2e, 0x11, 0x12,
+	0xe1, 0x62, 0x4d, 0xcd, 0x4d, 0xcc, 0xcc, 0x91, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0x82, 0x70,
+	0x84, 0xa4, 0xb8, 0x38, 0x0a, 0x12, 0x8b, 0x8b, 0xcb, 0xf3, 0x8b, 0x52, 0x24, 0x98, 0xc0, 0x12,
+	0x70, 0xbe, 0x92, 0x25, 0x17, 0x2f, 0xd4, 0x84, 0xe2, 0x82, 0xfc, 0xbc, 0xe2, 0x54, 0x21, 0x31,
+	0x2e, 0xb6, 0xe2, 0x92, 0xc4, 0x92, 0xd2, 0x62, 0xb0, 0x19, 0x1c, 0x41, 0x50, 0x9e, 0x90, 0x00,
+	0x17, 0x73, 0x76, 0x6a, 0x25, 0x54, 0x3f, 0x88, 0x69, 0x64, 0xc7, 0xc5, 0xe5, 0x9b, 0x99, 0x9d,
+	0x58, 0x90, 0x9f, 0xe2, 0xe9, 0xe8, 0x2b, 0x64, 0xc0, 0xc5, 0x0a, 0x36, 0x48, 0x48, 0x50, 0x2f,
+	0xb1, 0x20, 0x53, 0x0f, 0xd9, 0x59, 0x52, 0x42, 0xc8, 0x42, 0x10, 0x7b, 0x94, 0x18, 0x92, 0xd8,
+	0xc0, 0x1e, 0x31, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0x5f, 0x1f, 0xff, 0x7a, 0xd9, 0x00, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -397,7 +153,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MikapodIAMClient interface {
-	AddTimeSeriesDatum(ctx context.Context, in *TimeSeriesDatumRequest, opts ...grpc.CallOption) (*MikapodIAMResponse, error)
+	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 }
 
 type mikapodIAMClient struct {
@@ -408,9 +164,9 @@ func NewMikapodIAMClient(cc *grpc.ClientConn) MikapodIAMClient {
 	return &mikapodIAMClient{cc}
 }
 
-func (c *mikapodIAMClient) AddTimeSeriesDatum(ctx context.Context, in *TimeSeriesDatumRequest, opts ...grpc.CallOption) (*MikapodIAMResponse, error) {
-	out := new(MikapodIAMResponse)
-	err := c.cc.Invoke(ctx, "/api.MikapodIAM/AddTimeSeriesDatum", in, out, opts...)
+func (c *mikapodIAMClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, "/api.MikapodIAM/Login", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -419,35 +175,35 @@ func (c *mikapodIAMClient) AddTimeSeriesDatum(ctx context.Context, in *TimeSerie
 
 // MikapodIAMServer is the server API for MikapodIAM service.
 type MikapodIAMServer interface {
-	AddTimeSeriesDatum(context.Context, *TimeSeriesDatumRequest) (*MikapodIAMResponse, error)
+	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 }
 
 // UnimplementedMikapodIAMServer can be embedded to have forward compatible implementations.
 type UnimplementedMikapodIAMServer struct {
 }
 
-func (*UnimplementedMikapodIAMServer) AddTimeSeriesDatum(ctx context.Context, req *TimeSeriesDatumRequest) (*MikapodIAMResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddTimeSeriesDatum not implemented")
+func (*UnimplementedMikapodIAMServer) Login(ctx context.Context, req *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 
 func RegisterMikapodIAMServer(s *grpc.Server, srv MikapodIAMServer) {
 	s.RegisterService(&_MikapodIAM_serviceDesc, srv)
 }
 
-func _MikapodIAM_AddTimeSeriesDatum_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TimeSeriesDatumRequest)
+func _MikapodIAM_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MikapodIAMServer).AddTimeSeriesDatum(ctx, in)
+		return srv.(MikapodIAMServer).Login(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.MikapodIAM/AddTimeSeriesDatum",
+		FullMethod: "/api.MikapodIAM/Login",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MikapodIAMServer).AddTimeSeriesDatum(ctx, req.(*TimeSeriesDatumRequest))
+		return srv.(MikapodIAMServer).Login(ctx, req.(*LoginRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -457,8 +213,8 @@ var _MikapodIAM_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MikapodIAMServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "AddTimeSeriesDatum",
-			Handler:    _MikapodIAM_AddTimeSeriesDatum_Handler,
+			MethodName: "Login",
+			Handler:    _MikapodIAM_Login_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
