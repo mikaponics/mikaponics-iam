@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package api;
+
+import "google/protobuf/timestamp.proto";
+
+// DEVELOPERS NOTE:
+// export GO_PATH=~/go
+// export PATH=$PATH:/$GO_PATH/bin
+// export PATH=$PATH:$GOPATH/bin
+// $ cd ~/go/src/github.com/mikaponics/mikaponics-iam
+// $ protoc --go_out=plugins=grpc:. api/iam.proto
+
+service MikapodIAM {
+    rpc AddTimeSeriesDatum (TimeSeriesDatumRequest) returns (MikapodIAMResponse) {}
+    // https://grpc.io/docs/tutorials/basic/go/
+}
+
+// --- ADD ---
+
+message TimeSeriesDatumRequest {
+    int32 instrument = 1;
+    float value = 2;
+    google.protobuf.Timestamp timestamp = 3;
+}
+
+message MikapodIAMResponse {
+    string message = 1;
+    bool status = 2;
+}
+
+// --- LIST ---
+
+message ListTimeSeriesDataRequest {} //empty
+
+message ListTimeSeriesDataResponse {
+    repeated TimeSeriesDatum data = 1;
+}
+
+message TimeSeriesDatum {
+    int64 id = 1;
+    int32 instrument = 2;
+    float value = 3;
+    google.protobuf.Timestamp timestamp = 4;
+}
+
+// --- DELETE ---
+
+message DeleteTimeSeriesDataByPKsRequest {
+    repeated int64 pks = 1;
+}
+
+message DeleteTimeSeriesDataResponse {
+    string message = 1;
+    bool status = 2;
+}

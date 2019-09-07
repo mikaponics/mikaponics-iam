@@ -9,7 +9,7 @@ import (
 )
 
 
-type MikapodDB struct {
+type DataAccessLayer struct {
 	db *sqlx.DB
 }
 
@@ -18,7 +18,7 @@ type MikapodDB struct {
  *  Function initializes our connection with the `postgres` database for this
  *  web-application and saves the db connection instance in a global variable.
  */
-func InitDB(dbHost, dbPort, dbUser, dbPassword, dbName string) (*MikapodDB) {
+func InitDataAccessLayer(dbHost, dbPort, dbUser, dbPassword, dbName string) (*DataAccessLayer) {
     psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+ "password=%s dbname=%s sslmode=disable", dbHost, dbPort, dbUser, dbPassword, dbName)
     dbInstance, err := sqlx.Connect("postgres", psqlInfo)
     if err != nil {
@@ -29,11 +29,11 @@ func InitDB(dbHost, dbPort, dbUser, dbPassword, dbName string) (*MikapodDB) {
         panic(err)
     }
     fmt.Println("Database successfully connected!")
-    return &MikapodDB{
+    return &DataAccessLayer{
         db: dbInstance,
     }
 }
 
-func (modelLayer *MikapodDB) Shutdown() {
-    modelLayer.db.Close()
+func (dal *DataAccessLayer) Shutdown() {
+    dal.db.Close()
 }

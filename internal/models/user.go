@@ -28,10 +28,10 @@ type User struct {
 /**
  *  Function will create the `users` table in the database.
  */
-func (modelLayer *MikapodDB) CreateUserTable(dropExistingTable bool) {
+func (dal *DataAccessLayer) CreateUserTable(dropExistingTable bool) {
     if dropExistingTable {
         drop_stmt := "DROP TABLE users;"
-        results, err := modelLayer.db.Exec(drop_stmt)
+        results, err := dal.db.Exec(drop_stmt)
         if err != nil {
             fmt.Println("User Model:", results, err)
         }
@@ -51,7 +51,7 @@ func (modelLayer *MikapodDB) CreateUserTable(dropExistingTable bool) {
         email VARCHAR (255) UNIQUE NOT NULL,
         role_id INT NOT NULL
     );`
-    results, err := modelLayer.db.Exec(stmt)
+    results, err := dal.db.Exec(stmt)
     if err != nil {
         fmt.Println("User Model", results, err)
     }
@@ -63,13 +63,13 @@ func (modelLayer *MikapodDB) CreateUserTable(dropExistingTable bool) {
  *  Function will return the `user` struct if it exists in the database or
  *  return an error.
  */
-func (modelLayer *MikapodDB) FindUserByEmail(email string) (*User, error) {
+func (dal *DataAccessLayer) FindUserByEmail(email string) (*User, error) {
     user := User{} // The struct which will be populated from the database.
 
     // DEVELOPERS NOTE:
     // (1) Lookup the user based on the email.
     // (2) PostgreSQL uses an enumerated $1, $2, etc bindvar syntax
-    err := modelLayer.db.Get(&user, "SELECT * FROM users WHERE email = $1", email)
+    err := dal.db.Get(&user, "SELECT * FROM users WHERE email = $1", email)
 
     // Handling non existing item
     if err == sql.ErrNoRows {
@@ -86,7 +86,7 @@ func (modelLayer *MikapodDB) FindUserByEmail(email string) (*User, error) {
  *  Function will create a user, if validation passess, and reutrns the `user`
  *  struct else returns the error.
  */
-func (modelLayer *MikapodDB) CreateUser(email string, firstName string, lastName string, password string, tenantId int64, tenantSchema string, roleId int64) (*User, error) {
+func (dal *DataAccessLayer) CreateUser(email string, firstName string, lastName string, password string, tenantId int64, tenantSchema string, roleId int64) (*User, error) {
     // Step 1: Hash our user's password for added security or error on any condition.
     passwordHash, err := utils.HashPassword(password)
     if err != nil {
@@ -98,9 +98,9 @@ func (modelLayer *MikapodDB) CreateUser(email string, firstName string, lastName
 
     // Step 3: Execute our SQL statement and either return our new user or
     //         our error.
-    _, err = modelLayer.db.Exec(statement, email, firstName, lastName, passwordHash, tenantId, tenantSchema, roleId)
+    _, err = dal.db.Exec(statement, email, firstName, lastName, passwordHash, tenantId, tenantSchema, roleId)
     if err != nil {
         return nil, err
     }
-    return modelLayer.FindUserByEmail(email)
+    return dal.FindUserByEmail(email)
 }
