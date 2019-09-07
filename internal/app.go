@@ -13,13 +13,13 @@ import (
 )
 
 type MikapodIAM struct {
-	appAddress string
+	webServerAddress string
 	dal *models.DataAccessLayer
 	grpcServer *grpc.Server
 }
 
 // Function will construct the Mikapod IAM application.
-func InitMikapodIAM(dbHost, dbPort, dbUser, dbPassword, dbName, appAddress string) (*MikapodIAM) {
+func InitMikapodIAM(dbHost, dbPort, dbUser, dbPassword, dbName, webServerAddress string) (*MikapodIAM) {
 
 	// Initialize and connect our database layer for the entire application.
     dbInstance := models.InitDataAccessLayer(dbHost, dbPort, dbUser, dbPassword, dbName)
@@ -29,7 +29,7 @@ func InitMikapodIAM(dbHost, dbPort, dbUser, dbPassword, dbName, appAddress strin
 
 	// Create our application instance.
  	return &MikapodIAM{
-		appAddress: appAddress,
+		webServerAddress: webServerAddress,
 		dal: dbInstance,
 		grpcServer: nil,
 	}
@@ -40,7 +40,7 @@ func InitMikapodIAM(dbHost, dbPort, dbUser, dbPassword, dbName, appAddress strin
 func (app *MikapodIAM) RunMainRuntimeLoop() {
 	// Open a TCP server to the specified localhost and environment variable
     // specified port number.
-    lis, err := net.Listen("tcp", app.appAddress)
+    lis, err := net.Listen("tcp", app.webServerAddress)
     if err != nil {
         log.Fatalf("failed to listen: %v", err)
     }

@@ -13,10 +13,8 @@ import (
 
 var rootCmd = &cobra.Command{
     Use:   "mikaponics-iam",
-    Short: "Mikapnics Identity and Account Microservice",
-    Long: `A Fast and Flexible Static Site Generator built with
-           love by spf13 and friends in Go.
-           Complete documentation is available at http://hugo.spf13.com`,
+    Short: "Mikaponics Identity and Access Managemen (IAM) Web Service",
+    Long: `IAM is a web service that helps you securely control access to Mikaponics resources. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.`,
     Run: func(cmd *cobra.Command, args []string) {
         // Load up our `environment variables` from our operating system.
         dbHost := os.Getenv("MIKAPONICS_DB_HOST")
@@ -24,10 +22,10 @@ var rootCmd = &cobra.Command{
         dbUser := os.Getenv("MIKAPONICS_DB_USER")
         dbPassword := os.Getenv("MIKAPONICS_DB_PASSWORD")
         dbName := os.Getenv("MIKAPONICS_DB_NAME")
-        appAddress := os.Getenv("MIKAPONICS_APP_ADDRESS")
+        webServerAddress := os.Getenv("MIKAPONICS_APP_ADDRESS")
 
         // Initialize our application.
-        app := internal.InitMikapodIAM(dbHost, dbPort, dbUser, dbPassword, dbName, appAddress)
+        app := internal.InitMikapodIAM(dbHost, dbPort, dbUser, dbPassword, dbName, webServerAddress)
 
         // DEVELOPERS CODE:
     	// The following code will create an anonymous goroutine which will have a
