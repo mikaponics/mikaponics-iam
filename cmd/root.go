@@ -13,7 +13,7 @@ import (
 
 var rootCmd = &cobra.Command{
     Use:   "mikaponics-iam",
-    Short: "Mikaponics Identity and Access Managemen (IAM) Web Service",
+    Short: "Mikaponics Identity and Access Management (IAM) Web Service",
     Long: `IAM is a web service that helps you securely control access to Mikaponics resources. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources.`,
     Run: func(cmd *cobra.Command, args []string) {
         // Load up our `environment variables` from our operating system.
