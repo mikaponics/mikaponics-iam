@@ -25,7 +25,8 @@ func GetAccessTokenSecretKey() ([]byte) {
 }
 
 
-// Function returns token string which was generated.
+// Function returns token string which was generated. Set `durationInMinutes`
+// to zero if you want to create an access token without expiration limit.
 func GenerateAccessToken(
     userId int64,
     thingId int64,
@@ -33,14 +34,23 @@ func GenerateAccessToken(
 ) (string, error) {
     jwtKey := GetAccessTokenSecretKey()
 
+    // If the duration is less then zero then we'll add an indefinete date
+    // in the future to grant no expiry date to our JWT token.
+    var customExpiresAt int64
+    if durationInMinutes > 0 {
+        customExpiresAt = time.Now().Add(time.Minute * durationInMinutes).Unix()
+    } else {
+        customExpiresAt = time.Now().AddDate(9999, 1, 1).Unix()
+    }
+
     // Create the JWT claims, which includes the userId and expir.
     claims := AccessTokenClaims{
         userId,
         thingId,
         jwt.StandardClaims{
             // In JWT, the expiry time is expressed as unix milliseconds
-            ExpiresAt: time.Now().Add(time.Minute * durationInMinutes).Unix(), // MAKE SHORT-LIVED
-            Issuer:    "test",
+            ExpiresAt: customExpiresAt,
+            Issuer:    "server",
         },
     }
 
