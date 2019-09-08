@@ -9,21 +9,27 @@ import (
 )
 
 // The user claim embedded with the JWT standard claim.
-type MyCustomClaims struct {
+type MikaponicsClaims struct {
     UserId int64 `json:"user_id"`
+    ThingId int64 `json:"ThingId"`
     jwt.StandardClaims
 }
 
 
-func GenerateJWTToken(userId int64) (string, error) {
+func GenerateAccessToken(
+    userId int64,
+    thingId int64,
+    durationInMinutes time.Duration,
+) (string, error) {
     jwtKey := []byte("AllYourBase")
 
     // Create the JWT claims, which includes the userId and expir.
-    claims := MyCustomClaims{
+    claims := MikaponicsClaims{
         userId,
+        thingId,
         jwt.StandardClaims{
             // In JWT, the expiry time is expressed as unix milliseconds
-            ExpiresAt: time.Now().Add(time.Minute * 15).Unix(), // MAKE SHORT-LIVED
+            ExpiresAt: time.Now().Add(time.Minute * durationInMinutes).Unix(), // MAKE SHORT-LIVED
             Issuer:    "test",
         },
     }
@@ -38,9 +44,9 @@ func GenerateJWTToken(userId int64) (string, error) {
 }
 
 
-func VerifyJWTTokenString(tokenString string) (*MyCustomClaims, error) {
+func VerifyAccessTokenString(tokenString string) (*MikaponicsClaims, error) {
     // Initialize a new instance of `Claims`
-	claims := &MyCustomClaims{}
+	claims := &MikaponicsClaims{}
 
     // Parse the JWT string and store the result in `claims`.
 	// Note that we are passing the key in this method as well. This method will return an error

@@ -7,6 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -118,26 +119,246 @@ func (m *LoginResponse) GetToken() string {
 	return ""
 }
 
+type VerifyAccessTokenRequest struct {
+	Token                string   `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *VerifyAccessTokenRequest) Reset()         { *m = VerifyAccessTokenRequest{} }
+func (m *VerifyAccessTokenRequest) String() string { return proto.CompactTextString(m) }
+func (*VerifyAccessTokenRequest) ProtoMessage()    {}
+func (*VerifyAccessTokenRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dbcc987c0695300, []int{2}
+}
+
+func (m *VerifyAccessTokenRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_VerifyAccessTokenRequest.Unmarshal(m, b)
+}
+func (m *VerifyAccessTokenRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_VerifyAccessTokenRequest.Marshal(b, m, deterministic)
+}
+func (m *VerifyAccessTokenRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_VerifyAccessTokenRequest.Merge(m, src)
+}
+func (m *VerifyAccessTokenRequest) XXX_Size() int {
+	return xxx_messageInfo_VerifyAccessTokenRequest.Size(m)
+}
+func (m *VerifyAccessTokenRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_VerifyAccessTokenRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_VerifyAccessTokenRequest proto.InternalMessageInfo
+
+func (m *VerifyAccessTokenRequest) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
+type VerifyAccessTokenResponse struct {
+	Status               bool                 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	UserId               int64                `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ThingId              int64                `protobuf:"varint,3,opt,name=thing_id,json=thingId,proto3" json:"thing_id,omitempty"`
+	ExpiresAt            *timestamp.Timestamp `protobuf:"bytes,4,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *VerifyAccessTokenResponse) Reset()         { *m = VerifyAccessTokenResponse{} }
+func (m *VerifyAccessTokenResponse) String() string { return proto.CompactTextString(m) }
+func (*VerifyAccessTokenResponse) ProtoMessage()    {}
+func (*VerifyAccessTokenResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dbcc987c0695300, []int{3}
+}
+
+func (m *VerifyAccessTokenResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_VerifyAccessTokenResponse.Unmarshal(m, b)
+}
+func (m *VerifyAccessTokenResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_VerifyAccessTokenResponse.Marshal(b, m, deterministic)
+}
+func (m *VerifyAccessTokenResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_VerifyAccessTokenResponse.Merge(m, src)
+}
+func (m *VerifyAccessTokenResponse) XXX_Size() int {
+	return xxx_messageInfo_VerifyAccessTokenResponse.Size(m)
+}
+func (m *VerifyAccessTokenResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_VerifyAccessTokenResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_VerifyAccessTokenResponse proto.InternalMessageInfo
+
+func (m *VerifyAccessTokenResponse) GetStatus() bool {
+	if m != nil {
+		return m.Status
+	}
+	return false
+}
+
+func (m *VerifyAccessTokenResponse) GetUserId() int64 {
+	if m != nil {
+		return m.UserId
+	}
+	return 0
+}
+
+func (m *VerifyAccessTokenResponse) GetThingId() int64 {
+	if m != nil {
+		return m.ThingId
+	}
+	return 0
+}
+
+func (m *VerifyAccessTokenResponse) GetExpiresAt() *timestamp.Timestamp {
+	if m != nil {
+		return m.ExpiresAt
+	}
+	return nil
+}
+
+type RefreshAccessTokenRequest struct {
+	Token                string   `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RefreshAccessTokenRequest) Reset()         { *m = RefreshAccessTokenRequest{} }
+func (m *RefreshAccessTokenRequest) String() string { return proto.CompactTextString(m) }
+func (*RefreshAccessTokenRequest) ProtoMessage()    {}
+func (*RefreshAccessTokenRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dbcc987c0695300, []int{4}
+}
+
+func (m *RefreshAccessTokenRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RefreshAccessTokenRequest.Unmarshal(m, b)
+}
+func (m *RefreshAccessTokenRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RefreshAccessTokenRequest.Marshal(b, m, deterministic)
+}
+func (m *RefreshAccessTokenRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RefreshAccessTokenRequest.Merge(m, src)
+}
+func (m *RefreshAccessTokenRequest) XXX_Size() int {
+	return xxx_messageInfo_RefreshAccessTokenRequest.Size(m)
+}
+func (m *RefreshAccessTokenRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RefreshAccessTokenRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RefreshAccessTokenRequest proto.InternalMessageInfo
+
+func (m *RefreshAccessTokenRequest) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
+type RefreshAccessTokenResponse struct {
+	Status               bool                 `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	UserId               int64                `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ThingId              int64                `protobuf:"varint,3,opt,name=thing_id,json=thingId,proto3" json:"thing_id,omitempty"`
+	ExpiresAt            *timestamp.Timestamp `protobuf:"bytes,4,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *RefreshAccessTokenResponse) Reset()         { *m = RefreshAccessTokenResponse{} }
+func (m *RefreshAccessTokenResponse) String() string { return proto.CompactTextString(m) }
+func (*RefreshAccessTokenResponse) ProtoMessage()    {}
+func (*RefreshAccessTokenResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dbcc987c0695300, []int{5}
+}
+
+func (m *RefreshAccessTokenResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RefreshAccessTokenResponse.Unmarshal(m, b)
+}
+func (m *RefreshAccessTokenResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RefreshAccessTokenResponse.Marshal(b, m, deterministic)
+}
+func (m *RefreshAccessTokenResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RefreshAccessTokenResponse.Merge(m, src)
+}
+func (m *RefreshAccessTokenResponse) XXX_Size() int {
+	return xxx_messageInfo_RefreshAccessTokenResponse.Size(m)
+}
+func (m *RefreshAccessTokenResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RefreshAccessTokenResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RefreshAccessTokenResponse proto.InternalMessageInfo
+
+func (m *RefreshAccessTokenResponse) GetStatus() bool {
+	if m != nil {
+		return m.Status
+	}
+	return false
+}
+
+func (m *RefreshAccessTokenResponse) GetUserId() int64 {
+	if m != nil {
+		return m.UserId
+	}
+	return 0
+}
+
+func (m *RefreshAccessTokenResponse) GetThingId() int64 {
+	if m != nil {
+		return m.ThingId
+	}
+	return 0
+}
+
+func (m *RefreshAccessTokenResponse) GetExpiresAt() *timestamp.Timestamp {
+	if m != nil {
+		return m.ExpiresAt
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*LoginRequest)(nil), "api.LoginRequest")
 	proto.RegisterType((*LoginResponse)(nil), "api.LoginResponse")
+	proto.RegisterType((*VerifyAccessTokenRequest)(nil), "api.VerifyAccessTokenRequest")
+	proto.RegisterType((*VerifyAccessTokenResponse)(nil), "api.VerifyAccessTokenResponse")
+	proto.RegisterType((*RefreshAccessTokenRequest)(nil), "api.RefreshAccessTokenRequest")
+	proto.RegisterType((*RefreshAccessTokenResponse)(nil), "api.RefreshAccessTokenResponse")
 }
 
 func init() { proto.RegisterFile("api/iam.proto", fileDescriptor_4dbcc987c0695300) }
 
 var fileDescriptor_4dbcc987c0695300 = []byte{
-	// 175 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x4c, 0xcf, 0xc1, 0x0a, 0x82, 0x40,
-	0x10, 0x80, 0xe1, 0x2c, 0x14, 0x1b, 0xf2, 0xd0, 0x12, 0x21, 0x9e, 0xc2, 0x53, 0x27, 0x8b, 0x3a,
-	0x17, 0x75, 0x0c, 0xf2, 0xe2, 0x1b, 0x4c, 0xb8, 0xc4, 0x62, 0x3a, 0x93, 0xb3, 0xd2, 0xeb, 0x47,
-	0xab, 0x84, 0xc7, 0x7f, 0x17, 0xbe, 0x99, 0x81, 0x08, 0xd9, 0xec, 0x0c, 0xd6, 0x19, 0xb7, 0x64,
-	0x49, 0xcd, 0x90, 0x4d, 0x7a, 0x81, 0xc5, 0x9d, 0x9e, 0xa6, 0x29, 0xf4, 0xbb, 0xd3, 0x62, 0xd5,
-	0x0a, 0x7c, 0x5d, 0xa3, 0x79, 0xc5, 0xde, 0xc6, 0xdb, 0xce, 0x8b, 0x3e, 0x54, 0x02, 0x21, 0xa3,
-	0xc8, 0x87, 0xda, 0x32, 0x9e, 0xba, 0x8f, 0x7f, 0xa7, 0x27, 0x88, 0x06, 0x41, 0x98, 0x1a, 0xd1,
-	0x6a, 0x0d, 0x81, 0x58, 0xb4, 0x9d, 0x38, 0x23, 0x2c, 0x86, 0xfa, 0xd1, 0x96, 0x2a, 0xdd, 0x0c,
-	0x42, 0x1f, 0x87, 0x33, 0x40, 0x6e, 0x2a, 0x64, 0x2a, 0x6f, 0xd7, 0x5c, 0xed, 0xc1, 0x77, 0x98,
-	0x5a, 0x66, 0xc8, 0x26, 0x1b, 0xaf, 0x96, 0xa8, 0xf1, 0x53, 0x3f, 0x2b, 0x9d, 0x3c, 0x02, 0x77,
-	0xcc, 0xf1, 0x1b, 0x00, 0x00, 0xff, 0xff, 0x25, 0xd7, 0xb7, 0x85, 0xdd, 0x00, 0x00, 0x00,
+	// 355 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x52, 0x4f, 0x4f, 0xfa, 0x40,
+	0x14, 0xfc, 0xf5, 0x87, 0xfc, 0x7b, 0xca, 0x81, 0x8d, 0xd1, 0xd2, 0x44, 0x21, 0x3d, 0x71, 0x2a,
+	0x88, 0x27, 0x0f, 0x26, 0x72, 0x24, 0x91, 0x4b, 0x43, 0xf4, 0x48, 0x16, 0xfa, 0x28, 0x1b, 0x68,
+	0x77, 0xed, 0x6e, 0xa3, 0x7e, 0x1d, 0xfd, 0x7c, 0x7e, 0x07, 0xd3, 0xdd, 0x42, 0x9a, 0x40, 0xa3,
+	0x47, 0x8f, 0xf3, 0xe6, 0xcd, 0xb4, 0x33, 0x6f, 0xa1, 0x45, 0x05, 0x1b, 0x30, 0x1a, 0x79, 0x22,
+	0xe1, 0x8a, 0x93, 0x0a, 0x15, 0xcc, 0xe9, 0x86, 0x9c, 0x87, 0x5b, 0x1c, 0xe8, 0xd1, 0x22, 0x5d,
+	0x0d, 0x14, 0x8b, 0x50, 0x2a, 0x1a, 0x09, 0xb3, 0xe5, 0x3e, 0xc0, 0xd9, 0x23, 0x0f, 0x59, 0xec,
+	0xe3, 0x4b, 0x8a, 0x52, 0x91, 0x73, 0xa8, 0x62, 0x44, 0xd9, 0xd6, 0xb6, 0x7a, 0x56, 0xbf, 0xe9,
+	0x1b, 0x40, 0x1c, 0x68, 0x08, 0x2a, 0xe5, 0x2b, 0x4f, 0x02, 0xfb, 0xbf, 0x26, 0xf6, 0xd8, 0xbd,
+	0x87, 0x56, 0xee, 0x20, 0x05, 0x8f, 0x25, 0x92, 0x0b, 0xa8, 0x49, 0x45, 0x55, 0x2a, 0xb5, 0x47,
+	0xc3, 0xcf, 0x51, 0x66, 0xad, 0xf8, 0x06, 0xe3, 0xdc, 0xc1, 0x00, 0x77, 0x08, 0xf6, 0x13, 0x26,
+	0x6c, 0xf5, 0x3e, 0x5e, 0x2e, 0x51, 0xca, 0x59, 0x36, 0x2c, 0xfc, 0x8c, 0x51, 0x58, 0x45, 0xc5,
+	0x87, 0x05, 0x9d, 0x23, 0x92, 0x1f, 0xbe, 0x7e, 0x09, 0xf5, 0x54, 0x62, 0x32, 0x67, 0x26, 0x41,
+	0xc5, 0xaf, 0x65, 0x70, 0x12, 0x90, 0x0e, 0x34, 0xd4, 0x9a, 0xc5, 0x61, 0xc6, 0x54, 0x34, 0x53,
+	0xd7, 0x78, 0x12, 0x90, 0x3b, 0x00, 0x7c, 0x13, 0x2c, 0x41, 0x39, 0xa7, 0xca, 0x3e, 0xe9, 0x59,
+	0xfd, 0xd3, 0x91, 0xe3, 0x99, 0x4a, 0xbd, 0x5d, 0xa5, 0xde, 0x6c, 0x57, 0xa9, 0xdf, 0xcc, 0xb7,
+	0xc7, 0xca, 0xbd, 0x81, 0x8e, 0x8f, 0xab, 0x04, 0xe5, 0xfa, 0xd7, 0xb9, 0x3e, 0x2d, 0x70, 0x8e,
+	0x69, 0xfe, 0x54, 0xb0, 0xd1, 0x97, 0x05, 0x30, 0x65, 0x1b, 0x2a, 0x78, 0x30, 0x19, 0x4f, 0xc9,
+	0x10, 0xaa, 0xfa, 0xfa, 0xa4, 0xed, 0x51, 0xc1, 0xbc, 0xe2, 0x5b, 0x72, 0x48, 0x71, 0x64, 0x52,
+	0xb8, 0xff, 0xc8, 0x0c, 0xda, 0x07, 0xd7, 0x23, 0x57, 0x7a, 0xb5, 0xec, 0x21, 0x38, 0xd7, 0x65,
+	0xf4, 0xde, 0xf5, 0x19, 0xc8, 0x61, 0x77, 0xc4, 0xe8, 0x4a, 0x0f, 0xe1, 0x74, 0x4b, 0xf9, 0x9d,
+	0xf1, 0xa2, 0xa6, 0xeb, 0xb8, 0xfd, 0x0e, 0x00, 0x00, 0xff, 0xff, 0x42, 0xe4, 0x6f, 0x33, 0x5e,
+	0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -153,6 +374,8 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MikapodIAMClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	VerifyAccessToken(ctx context.Context, in *VerifyAccessTokenRequest, opts ...grpc.CallOption) (*VerifyAccessTokenResponse, error)
+	RefreshAccessToken(ctx context.Context, in *RefreshAccessTokenRequest, opts ...grpc.CallOption) (*RefreshAccessTokenResponse, error)
 }
 
 type mikapodIAMClient struct {
@@ -172,9 +395,29 @@ func (c *mikapodIAMClient) Login(ctx context.Context, in *LoginRequest, opts ...
 	return out, nil
 }
 
+func (c *mikapodIAMClient) VerifyAccessToken(ctx context.Context, in *VerifyAccessTokenRequest, opts ...grpc.CallOption) (*VerifyAccessTokenResponse, error) {
+	out := new(VerifyAccessTokenResponse)
+	err := c.cc.Invoke(ctx, "/api.MikapodIAM/VerifyAccessToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mikapodIAMClient) RefreshAccessToken(ctx context.Context, in *RefreshAccessTokenRequest, opts ...grpc.CallOption) (*RefreshAccessTokenResponse, error) {
+	out := new(RefreshAccessTokenResponse)
+	err := c.cc.Invoke(ctx, "/api.MikapodIAM/RefreshAccessToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MikapodIAMServer is the server API for MikapodIAM service.
 type MikapodIAMServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	VerifyAccessToken(context.Context, *VerifyAccessTokenRequest) (*VerifyAccessTokenResponse, error)
+	RefreshAccessToken(context.Context, *RefreshAccessTokenRequest) (*RefreshAccessTokenResponse, error)
 }
 
 // UnimplementedMikapodIAMServer can be embedded to have forward compatible implementations.
@@ -183,6 +426,12 @@ type UnimplementedMikapodIAMServer struct {
 
 func (*UnimplementedMikapodIAMServer) Login(ctx context.Context, req *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (*UnimplementedMikapodIAMServer) VerifyAccessToken(ctx context.Context, req *VerifyAccessTokenRequest) (*VerifyAccessTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyAccessToken not implemented")
+}
+func (*UnimplementedMikapodIAMServer) RefreshAccessToken(ctx context.Context, req *RefreshAccessTokenRequest) (*RefreshAccessTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RefreshAccessToken not implemented")
 }
 
 func RegisterMikapodIAMServer(s *grpc.Server, srv MikapodIAMServer) {
@@ -207,6 +456,42 @@ func _MikapodIAM_Login_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MikapodIAM_VerifyAccessToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyAccessTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MikapodIAMServer).VerifyAccessToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.MikapodIAM/VerifyAccessToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MikapodIAMServer).VerifyAccessToken(ctx, req.(*VerifyAccessTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MikapodIAM_RefreshAccessToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RefreshAccessTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MikapodIAMServer).RefreshAccessToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.MikapodIAM/RefreshAccessToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MikapodIAMServer).RefreshAccessToken(ctx, req.(*RefreshAccessTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _MikapodIAM_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "api.MikapodIAM",
 	HandlerType: (*MikapodIAMServer)(nil),
@@ -214,6 +499,14 @@ var _MikapodIAM_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Login",
 			Handler:    _MikapodIAM_Login_Handler,
+		},
+		{
+			MethodName: "VerifyAccessToken",
+			Handler:    _MikapodIAM_VerifyAccessToken_Handler,
+		},
+		{
+			MethodName: "RefreshAccessToken",
+			Handler:    _MikapodIAM_RefreshAccessToken_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

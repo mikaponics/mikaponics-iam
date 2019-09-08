@@ -18,7 +18,7 @@ func init() {
 
 var loginCmd = &cobra.Command{
     Use:   "login [FIELDS]",
-    Short: "Generate credentials for valid email and apssword.",
+    Short: "Generate credentials for valid email and password.",
     Long:  `Command used to grant access to our system for the valid email and password pair.`,
     Args: func(cmd *cobra.Command, args []string) error {
         if len(args) < 2 {
@@ -49,22 +49,22 @@ var loginCmd = &cobra.Command{
             log.Fatalf("could not find user with email: %v", email)
         }
 
+        // Verify our inputted password is valid.
         var isCorrectPassword bool = utils.CheckPasswordHash(password, user.PasswordHash.String)
         if isCorrectPassword == false {
             log.Fatalf("could not login into account with email and password: %v %v", email, password)
         }
 
-        log.Printf("\n%v\n\n", user)
-
-        tokenString, err := utils.GenerateJWTToken(user.Id)
+        // Generate our access token.
+        tokenString, err := utils.GenerateAccessToken(user.Id, 0, 15)
 
         // If there is an error in creating the JWT return an internal server error
         if err != nil {
             log.Fatalf("could not generate JWT token because: %v",err)
         }
-        log.Printf("\n%v\n\n", tokenString)
+        log.Printf("ACCESS TOKEN: %v\n\n", tokenString)
 
-        isValidJWTToken, validationError := utils.VerifyJWTTokenString(tokenString)
-        log.Printf("\n%v %v\n\n", isValidJWTToken, validationError)
+        // isValidJWTToken, validationError := utils.VerifyAccessTokenString(tokenString)
+        // log.Printf("\n%v %v\n\n", isValidJWTToken, validationError)
     },
 }

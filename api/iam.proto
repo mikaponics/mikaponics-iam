@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package api;
 
-// import "google/protobuf/timestamp.proto";
+import "google/protobuf/timestamp.proto";
 
 // DEVELOPERS NOTE:
 // export GO_PATH=~/go
@@ -13,6 +13,8 @@ package api;
 
 service MikapodIAM {
     rpc Login (LoginRequest) returns (LoginResponse) {}
+    rpc VerifyAccessToken (VerifyAccessTokenRequest) returns (VerifyAccessTokenResponse) {}
+    rpc RefreshAccessToken (RefreshAccessTokenRequest) returns (RefreshAccessTokenResponse) {}
     // https://grpc.io/docs/tutorials/basic/go/
 }
 
@@ -28,28 +30,29 @@ message LoginResponse {
     string token = 2;
 }
 
-// // --- LIST ---
-//
-// message ListTimeSeriesDataRequest {} //empty
-//
-// message ListTimeSeriesDataResponse {
-//     repeated TimeSeriesDatum data = 1;
-// }
-//
-// message TimeSeriesDatum {
-//     int64 id = 1;
-//     int32 instrument = 2;
-//     float value = 3;
-//     google.protobuf.Timestamp timestamp = 4;
-// }
-//
-// // --- DELETE ---
-//
-// message DeleteTimeSeriesDataByPKsRequest {
-//     repeated int64 pks = 1;
-// }
-//
-// message DeleteTimeSeriesDataResponse {
-//     string message = 1;
-//     bool status = 2;
-// }
+// --- VERIFY ACCESS TOKEN ---
+
+message VerifyAccessTokenRequest {
+    string token = 1;
+}
+
+message VerifyAccessTokenResponse {
+    bool status = 1;
+    int64 user_id = 2;
+    int64 thing_id = 3;
+    google.protobuf.Timestamp expires_at = 4;
+}
+
+
+// --- REFRESH ACCESS TOKEN ---
+
+message RefreshAccessTokenRequest {
+    string token = 1;
+}
+
+message RefreshAccessTokenResponse {
+    bool status = 1;
+    int64 user_id = 2;
+    int64 thing_id = 3;
+    google.protobuf.Timestamp expires_at = 4;
+}
