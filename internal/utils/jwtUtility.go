@@ -3,7 +3,8 @@ package utils
 import (
     // "context"
     "time"
-    "fmt"
+    "errors"
+    // "fmt"
     jwt "github.com/dgrijalva/jwt-go"
 )
 
@@ -14,35 +15,44 @@ type MyCustomClaims struct {
 }
 
 
-
 func GenerateJWTToken(userId int64) (string, error) {
-    mySigningKey := []byte("AllYourBase")
+    jwtKey := []byte("AllYourBase")
 
-    // Create the Claims
+    // Create the JWT claims, which includes the userId and expir.
     claims := MyCustomClaims{
         userId,
         jwt.StandardClaims{
+            // In JWT, the expiry time is expressed as unix milliseconds
             ExpiresAt: time.Now().Add(time.Minute * 15).Unix(), // MAKE SHORT-LIVED
             Issuer:    "test",
         },
     }
 
-    token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-    ss, err := token.SignedString(mySigningKey)
-    return ss, err
+    // Declare the token with the algorithm used for signing, and the claims
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+    // Create the JWT string
+	tokenString, err := token.SignedString(jwtKey)
+
+    return tokenString, err
 }
 
 
-func VerifyJWTTokenString(tokenString string) (bool, error) {
-    token, err := jwt.ParseWithClaims(tokenString, &MyCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
-        return []byte("AllYourBase"), nil
-    })
+func VerifyJWTTokenString(tokenString string) (*MyCustomClaims, error) {
+    // Initialize a new instance of `Claims`
+	claims := &MyCustomClaims{}
 
-    if claims, ok := token.Claims.(*MyCustomClaims); ok && token.Valid {
-        // fmt.Printf("%v %v", claims.UserId, claims.StandardClaims.ExpiresAt)
-        fmt.Printf("> %v <", claims)
-    } else {
-        return false, err
+    // Parse the JWT string and store the result in `claims`.
+	// Note that we are passing the key in this method as well. This method will return an error
+	// if the token is invalid (if it has expired according to the expiry time we set on sign in),
+	// or if the signature does not match
+	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+		return []byte("AllYourBase"), nil
+	})
+
+    // If the token is invalid then we'll generate an error else return our results.
+    if !token.Valid {
+        return nil, errors.New("Invalid token")
     }
-    return true, nil
+    return claims, err
 }

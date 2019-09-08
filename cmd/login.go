@@ -57,6 +57,8 @@ var loginCmd = &cobra.Command{
         log.Printf("\n%v\n\n", user)
 
         tokenString, err := utils.GenerateJWTToken(user.Id)
+
+        // If there is an error in creating the JWT return an internal server error
         if err != nil {
             log.Fatalf("could not generate JWT token because: %v",err)
         }
