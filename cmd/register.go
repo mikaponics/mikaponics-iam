@@ -12,12 +12,12 @@ import (
 )
 
 func init() {
-    rootCmd.AddCommand(versionCmd)
+    rootCmd.AddCommand(registerCmd)
 }
 
-var versionCmd = &cobra.Command{
-    Use:   "create [FIELDS]",
-    Short: "Create user account.",
+var registerCmd = &cobra.Command{
+    Use:   "register [FIELDS]",
+    Short: "Registers a user account.",
     Long:  `Command used to create a Mikaponics account, you begin with a single sign-in identity that has complete access to all Mikaponics services and resources in the account. Mikaponics accounts are accessed by signing in with an email address and password.`,
     Args: func(cmd *cobra.Command, args []string) error {
         if len(args) < 7 {
@@ -51,10 +51,10 @@ var versionCmd = &cobra.Command{
 
         user, err := dal.CreateUser(email, firstName, lastName, password, tenantId, tenantSchema, roleId)
         if err != nil {
-            fmt.Println("Failed creating user!")
+            fmt.Println("Failed registering user!")
             fmt.Println(err)
         } else {
-            fmt.Println("User created with ID #", user.Id)
+            fmt.Println("User registered with ID #", user.Id)
         }
     },
 }
