@@ -11,7 +11,7 @@ import (
 
 func (s *MikaponicsRPC) Login(ctx context.Context, in *pb.LoginRequest) (*pb.LoginResponse, error) {
 	return &pb.LoginResponse{
-		Key: "Instrument was updated",
+		Token: "Instrument was updated",
 		Status: true,
 	}, nil
 }
