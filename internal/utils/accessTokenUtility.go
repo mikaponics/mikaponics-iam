@@ -3,7 +3,6 @@ package utils
 import (
     // "context"
     "time"
-    "errors"
     "os"
     // "fmt"
     jwt "github.com/dgrijalva/jwt-go"
@@ -69,9 +68,9 @@ func VerifyAccessTokenString(tokenString string) (*AccessTokenClaims, error) {
 		return GetAccessTokenSecretKey(), nil
 	})
 
-    // If the token is invalid then we'll generate an error else return our results.
-    if !token.Valid {
-        return nil, errors.New("Invalid token")
+    // If the token is invalid then we'll return an error else return our results.
+    if !token.Valid || err != nil {
+        return nil, err
     }
     return claims, err
 }
