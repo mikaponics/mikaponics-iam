@@ -5,6 +5,6 @@ import (
 )
 
 
-type MikaponicsRPC struct{
+type MikaponicsIAMServer struct{
     DAL *models.DataAccessLayer
 }

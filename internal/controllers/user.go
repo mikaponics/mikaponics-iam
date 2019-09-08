@@ -9,7 +9,7 @@ import (
 	pb "github.com/mikaponics/mikaponics-iam/api"
 )
 
-func (s *MikaponicsRPC) Login(ctx context.Context, in *pb.LoginRequest) (*pb.LoginResponse, error) {
+func (s *MikaponicsIAMServer) Login(ctx context.Context, in *pb.LoginRequest) (*pb.LoginResponse, error) {
 	return &pb.LoginResponse{
 		Token: "Instrument was updated",
 		Status: true,
@@ -17,7 +17,7 @@ func (s *MikaponicsRPC) Login(ctx context.Context, in *pb.LoginRequest) (*pb.Log
 }
 
 
-func (s *MikaponicsRPC) VerifyAccessToken(ctx context.Context, in *pb.VerifyAccessTokenRequest) (*pb.VerifyAccessTokenResponse, error) {
+func (s *MikaponicsIAMServer) VerifyAccessToken(ctx context.Context, in *pb.VerifyAccessTokenRequest) (*pb.VerifyAccessTokenResponse, error) {
 	return &pb.VerifyAccessTokenResponse{
 		Status: true,
 		UserId: 0,
@@ -27,7 +27,7 @@ func (s *MikaponicsRPC) VerifyAccessToken(ctx context.Context, in *pb.VerifyAcce
 }
 
 
-func (s *MikaponicsRPC) RefreshAccessToken(ctx context.Context, in *pb.RefreshAccessTokenRequest) (*pb.RefreshAccessTokenResponse, error) {
+func (s *MikaponicsIAMServer) RefreshAccessToken(ctx context.Context, in *pb.RefreshAccessTokenRequest) (*pb.RefreshAccessTokenResponse, error) {
 	return &pb.RefreshAccessTokenResponse{
 		Status: true,
 		UserId: 0,

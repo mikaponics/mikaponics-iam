@@ -55,7 +55,7 @@ func (app *MikapodIAM) RunMainRuntimeLoop() {
     log.Printf("gRPC server is running.")
 
     // Block the main runtime loop for accepting and processing gRPC requests.
-    pb.RegisterMikapodIAMServer(grpcServer, &controllers.MikaponicsRPC{
+    pb.RegisterMikapodIAMServer(grpcServer, &controllers.MikaponicsIAMServer{
         // DEVELOPERS NOTE:
         // We want to attach to every gRPC call the following variables...
         DAL: app.dal,
