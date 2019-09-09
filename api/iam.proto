@@ -11,7 +11,7 @@ import "google/protobuf/timestamp.proto";
 // $ cd ~/go/src/github.com/mikaponics/mikaponics-iam
 // $ protoc --go_out=plugins=grpc:. api/iam.proto
 
-service MikapodIAM {
+service MikaponicsIAM {
     rpc Login (LoginRequest) returns (LoginResponse) {}
     rpc VerifyAccessToken (VerifyAccessTokenRequest) returns (VerifyAccessTokenResponse) {}
     rpc RefreshAccessToken (RefreshAccessTokenRequest) returns (RefreshAccessTokenResponse) {}

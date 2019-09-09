@@ -16,17 +16,6 @@ func (s *MikaponicsIAMServer) Login(ctx context.Context, in *pb.LoginRequest) (*
 	}, nil
 }
 
-
-func (s *MikaponicsIAMServer) VerifyAccessToken(ctx context.Context, in *pb.VerifyAccessTokenRequest) (*pb.VerifyAccessTokenResponse, error) {
-	return &pb.VerifyAccessTokenResponse{
-		Status: true,
-		UserId: 0,
-		ThingId: 0,
-		ExpiresAt: nil,
-	}, nil
-}
-
-
 func (s *MikaponicsIAMServer) RefreshAccessToken(ctx context.Context, in *pb.RefreshAccessTokenRequest) (*pb.RefreshAccessTokenResponse, error) {
 	return &pb.RefreshAccessTokenResponse{
 		Status: true,

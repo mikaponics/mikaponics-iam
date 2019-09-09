@@ -12,14 +12,14 @@ import (
 	"github.com/mikaponics/mikaponics-iam/internal/models"
 )
 
-type MikapodIAM struct {
+type MikaponicsIAM struct {
 	webServerAddress string
 	dal *models.DataAccessLayer
 	grpcServer *grpc.Server
 }
 
 // Function will construct the Mikapod IAM application.
-func InitMikapodIAM(dbHost, dbPort, dbUser, dbPassword, dbName, webServerAddress string) (*MikapodIAM) {
+func InitMikaponicsIAM(dbHost, dbPort, dbUser, dbPassword, dbName, webServerAddress string) (*MikaponicsIAM) {
 
 	// Initialize and connect our database layer for the entire application.
     dbInstance := models.InitDataAccessLayer(dbHost, dbPort, dbUser, dbPassword, dbName)
@@ -28,7 +28,7 @@ func InitMikapodIAM(dbHost, dbPort, dbUser, dbPassword, dbName, webServerAddress
     dbInstance.CreateUserTable(false)
 
 	// Create our application instance.
- 	return &MikapodIAM{
+ 	return &MikaponicsIAM{
 		webServerAddress: webServerAddress,
 		dal: dbInstance,
 		grpcServer: nil,
@@ -37,7 +37,7 @@ func InitMikapodIAM(dbHost, dbPort, dbUser, dbPassword, dbName, webServerAddress
 
 // Function will consume the main runtime loop and run the business logic
 // of the Mikapod IAM application.
-func (app *MikapodIAM) RunMainRuntimeLoop() {
+func (app *MikaponicsIAM) RunMainRuntimeLoop() {
 	// Open a TCP server to the specified localhost and environment variable
     // specified port number.
     lis, err := net.Listen("tcp", app.webServerAddress)
@@ -55,7 +55,7 @@ func (app *MikapodIAM) RunMainRuntimeLoop() {
     log.Printf("gRPC server is running.")
 
     // Block the main runtime loop for accepting and processing gRPC requests.
-    pb.RegisterMikapodIAMServer(grpcServer, &controllers.MikaponicsIAMServer{
+    pb.RegisterMikaponicsIAMServer(grpcServer, &controllers.MikaponicsIAMServer{
         // DEVELOPERS NOTE:
         // We want to attach to every gRPC call the following variables...
         DAL: app.dal,
@@ -67,7 +67,7 @@ func (app *MikapodIAM) RunMainRuntimeLoop() {
 
 // Function will tell the application to stop the main runtime loop when
 // the process has been finished.
-func (app *MikapodIAM) StopMainRuntimeLoop() {
+func (app *MikaponicsIAM) StopMainRuntimeLoop() {
 	// Finish any RPC communication taking place at the moment before
     // shutting down the gRPC server.
     app.grpcServer.GracefulStop()
